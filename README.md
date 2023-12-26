@@ -29,7 +29,10 @@ To create a webhook with AWS Lambda and API Gateway, you would create a new HTTP
 
 Go to AWS Lambda in your AWS Console and select "Create function". You can call your function something like `GithubWebhookToSlack` and select Python.
 In your function code, you'll process the incoming GitHub payload and send a formatted message to Slack.
-I've created 2 Lambda functions, and each one builds a different message.
+I've created 2 Lambda functions, and each one builds a different message:
+- [block_kit.py](block_kit.py)
+- [legacy_msg.py](legacy_msg.py)
+
 The issue is that Slack deprecated some features on their messages and moved to a "block_kit" concept. I personally didn't like it because you can't color anything (hence the emoji).
 The deprecated one looks good on the desktop app but not as good on mobile (the text is not bold and with stars around it).
 So pick whatever you like best.
