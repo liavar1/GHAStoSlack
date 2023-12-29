@@ -1,0 +1,24 @@
+# .github/release.yml
+
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+    authors:
+      - liavar1
+  categories:
+    - title: Breaking Changes 🛠
+      labels:
+        - breaking-change
+    - title: Exciting New Features 🎉
+      labels:
+        - enhancement
+    - title: Docs 📝
+      labels:
+        - documentation
+    - title: Bugfixes 🐞
+      labels:
+        - bug  
+    - title: Other Changes
+      labels:
+        - "*"
