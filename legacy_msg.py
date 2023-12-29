@@ -22,15 +22,10 @@ def lambda_handler(event, context):
     repo_url = git_payload.get('repository', {}).get('html_url')
     sender = git_payload.get('sender', {}).get('login')
 
-    if action is not None:
-        if any(phrase in action for phrase in ['created', 'reintroduced', 'reopened']):
-            action_type="#FF051E"
-        elif any(phrase in action for phrase in ['resolved', 'fixed']):
-            action_type="#0FD634"
-        else:
-            action_type="#3AA3E3"
-    else:
-        action_type="#3AA3E3" 
+    action_types = {"created": "#FF051E", "reintroduced": "#FF051E", "reopened": "#FF051E", 
+                    "resolved": "#0FD634", "fixed": "#0FD634"}
+     
+    action_type = action_types.get(action, "#3AA3E3") if action else "#3AA3E3"
     
     text = ""
     if action is not None: text += f"*Action:* {action}\n"
