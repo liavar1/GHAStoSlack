@@ -22,15 +22,20 @@ def lambda_handler(event, context):
     repo_url = git_payload.get('repository', {}).get('html_url')
     sender = git_payload.get('sender', {}).get('login')
 
+    #Set colors for messages: red/green
     action_types = {"created": "#FF051E", "reintroduced": "#FF051E", "reopened": "#FF051E", 
                     "resolved": "#0FD634", "fixed": "#0FD634"}
      
+    #Set blue for informational messages
     action_type = action_types.get(action, "#3AA3E3") if action else "#3AA3E3"
     
+    #Set purple for dependabot
+    if action_type == "#FF051E" and git_event.startswith("dependabot"):
+        action_type = "#893AE3"
+
     text = ""
     if action is not None: text += f"*Action:* {action}\n"
-    if repository is not None: text += f"*Repository:* {repository}\n"
-    if repo_url is not None: text += f"*Repository Url:* {repo_url}\n"
+    if repository is not None: text += f"*Repository:* <{repo_url}|{repository}>\n"
     if alert_severity is not None: text += f"*Alert Severity:* {alert_severity}\n"
     if alert_state is not None: text += f"*Alert State:* {alert_state}\n"
     if html_url is not None: text += f"*Alert Url:* {html_url}\n"
