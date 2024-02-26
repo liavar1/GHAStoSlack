@@ -22,16 +22,21 @@ def lambda_handler(event, context):
     repo_url = git_payload.get('repository', {}).get('html_url')
     sender = git_payload.get('sender', {}).get('login')
 
+    # Set red/green alert emoji
     action_types = {"created": "bangbang", "reintroduced": "bangbang", "reopened": "bangbang", 
                     "resolved": "white_check_mark", "fixed": "white_check_mark"}
-     
+    
+    # Set blue alert emoji for informational messages
     action_type = action_types.get(action, "information_source") if action else "information_source"
+
+    # Set robot emoji for dependabot alerts
+    if action_type == "robot_face" and git_event.startswith("dependabot"):
+        action_type = "robot_face"
 
     # Build up the text string
     text = ""
     if action is not None: text += f"*Action:* {action}\n"
-    if repository is not None: text += f"*Repository:* {repository}\n"
-    if repo_url is not None: text += f"*Repository Url:* {repo_url}\n"
+    if repository is not None: text += f"*Repository:* <{repo_url}|{repository}>\n"
     if alert_severity is not None: text += f"*Alert Severity:* {alert_severity}\n"
     if alert_state is not None: text += f"*Alert State:* {alert_state}\n"
     if html_url is not None: text += f"*Alert Url:* {html_url}\n"
