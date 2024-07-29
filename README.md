@@ -1,4 +1,4 @@
-# GitHub to Slack Integration
+# GitHub Advanced Security to Slack Integration
 Sending GitHub advanced security (GHAS) alerts to Slack
 I did it on the GitHub Enterprise server but I believe it works for github.com as well.
 
